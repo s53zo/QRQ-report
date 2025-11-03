@@ -14,7 +14,7 @@ Analyze your QRQ (Morse code) summary logs and produce both a detailed text repo
 
 ## Quick Start
 
-1) Place `qrq_report.py` with your QRQ logs, or pass a directory.
+1) Place `qrq_report.py` with your QRQ logs (on my computer this is /Users/username/.qrq/Summary), or pass a directory.
 
 - Default run in current directory:
 
