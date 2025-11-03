@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QRQ Copy Performance Dashboard</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f9fc;
+      --panel: #ffffff;
+      --accent: #1f6feb;
+      --accent-soft: rgba(31, 111, 235, 0.12);
+      --text: #1f2933;
+      --muted: #6b7280;
+      --border: #d0d7de;
+      --success: #0f9d58;
+      font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      line-height: 1.6;
+    }
+    header {
+      background: linear-gradient(135deg, rgba(31, 111, 235, 0.95), rgba(15, 157, 88, 0.85));
+      color: #fff;
+      padding: 48px 7%;
+    }
+    header h1 {
+      margin: 0 0 12px;
+      font-size: 2.4rem;
+      letter-spacing: 0.02em;
+    }
+    header p {
+      max-width: 640px;
+      margin: 0;
+      font-size: 1.1rem;
+    }
+    main {
+      margin: 0 auto;
+      padding: 32px 7%;
+      max-width: 1200px;
+    }
+    section {
+      background: var(--panel);
+      border-radius: 16px;
+      box-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
+      padding: 28px 32px;
+      margin-bottom: 32px;
+      border: 1px solid rgba(255,255,255,0.6);
+    }
+    h2 {
+      font-size: 1.6rem;
+      margin-top: 0;
+      margin-bottom: 16px;
+    }
+    h3 {
+      font-size: 1.2rem;
+      margin-bottom: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .card {
+      padding: 20px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+    }
+    .card h4 {
+      margin: 0 0 4px;
+      font-size: 0.9rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .card p {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+    .highlight {
+      background: var(--accent-soft);
+      border-color: rgba(31,111,235,0.25);
+    }
+    .attempt-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+    .attempt-card {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      background: #fdfefe;
+    }
+    .attempt-card h4 {
+      margin: 0;
+      font-size: 0.95rem;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .attempt-title {
+      margin: 8px 0 14px;
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+    .attempt-card ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+    .chart {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+    }
+    .chart-bg {
+      fill: #fff;
+      rx: 16px;
+      ry: 16px;
+      stroke: var(--border);
+      stroke-width: 1;
+    }
+    .grid {
+      stroke: rgba(105, 124, 154, 0.25);
+      stroke-width: 1;
+      stroke-dasharray: 4 6;
+    }
+    .axis {
+      stroke: #9aa5b1;
+      stroke-width: 1.4;
+    }
+    .axis-label {
+      fill: var(--muted);
+      font-size: 0.75rem;
+    }
+    .line {
+      fill: none;
+      stroke: var(--accent);
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .line-point {
+      fill: var(--accent);
+      stroke: #fff;
+      stroke-width: 2;
+    }
+    .bar {
+      fill: rgba(31, 111, 235, 0.85);
+    }
+    .bar.horizontal {
+      fill: rgba(15, 157, 88, 0.75);
+    }
+    .bar-label {
+      fill: var(--text);
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+    }
+    table th, table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+    }
+    table th {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+    ul.insights {
+      padding-left: 20px;
+      margin: 0;
+    }
+    ul.insights li {
+      margin-bottom: 8px;
+    }
+    footer {
+      text-align: center;
+      padding: 24px;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+    @media (max-width: 800px) {
+      header {
+        padding: 36px 5%;
+      }
+      main {
+        padding: 28px 5%;
+      }
+      .cards {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>QRQ Copy Performance Dashboard</h1>
+    <p>Interactive-style analysis of QRQ CW copying sessions recorded in <strong>/Users/simon/.qrq/Summary</strong>. The dashboard highlights accuracy trends, speed thresholds, and character-level pain points to guide targeted training.</p>
+  </header>
+  <main>
+    <section>
+      <h2>Executive Summary</h2>
+      <div class="cards">
+        <div class='card'><h4>Total Attempts</h4><p>33</p></div><div class='card'><h4>Total Calls</h4><p>1566</p></div><div class='card'><h4>Overall Accuracy</h4><p>55.1%</p></div><div class='card'><h4>Average Speed</h4><p>42.6 WPM</p></div><div class='card'><h4>Median Speed</h4><p>42.0 WPM</p></div><div class='card'><h4>Average CpM</h4><p>213.1</p></div>
+      </div>
+      <h3>Top Highlights</h3>
+      <ul class="insights">
+        <li>Accuracy remains above 60% at speeds up to 42 WPM but drops to 47.6% in the 43–46 WPM band.</li><li>Characters like 7, S, V, B, I account for the majority of letter-level errors.</li><li>Omissions concentrate on portable designators (&#x27;/&#x27;, &#x27;K&#x27;, &#x27;A&#x27;), highlighting the need for deliberate practice on stroke-heavy calls.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Session Benchmarks</h2>
+      <div class="attempt-grid">
+        <div class='attempt-card'><h4>Best Session</h4><p class='attempt-title'>S53M-20250926_1033.txt</p><ul><li><strong>Date:</strong> 2025-09-26 10:33</li><li><strong>Operator:</strong> S53M</li><li><strong>Accuracy:</strong> 31/50 (62.0%)</li><li><strong>Average Speed:</strong> 38.1 WPM (max 46 WPM)</li><li><strong>F6 usage:</strong> 18</li></ul></div>
+        <div class='attempt-card'><h4>Most Challenging Session</h4><p class='attempt-title'>S53ZO-20251103_1455.txt</p><ul><li><strong>Date:</strong> 2025-11-03 14:55</li><li><strong>Operator:</strong> S53ZO</li><li><strong>Accuracy:</strong> 4/9 (44.4%)</li><li><strong>Average Speed:</strong> 36.4 WPM (max 38 WPM)</li><li><strong>F6 usage:</strong> 0</li></ul></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Performance Over Time</h2>
+      <h3>Daily Accuracy</h3>
+      <svg viewBox='0 0 900 320' class='chart'><title>Daily Accuracy</title><rect x='0' y='0' width='900' height='320' class='chart-bg' /><line x1='60' x2='60' y1='60' y2='260' class='axis' /><line x1='60' x2='840' y1='260' y2='260' class='axis' /><line x1='60' x2='840' y1='260.00' y2='260.00' class='grid' /><text x='45' y='264.00' class='axis-label'>52.7%</text><line x1='60' x2='840' y1='220.00' y2='220.00' class='grid' /><text x='45' y='224.00' class='axis-label'>54.0%</text><line x1='60' x2='840' y1='180.00' y2='180.00' class='grid' /><text x='45' y='184.00' class='axis-label'>55.3%</text><line x1='60' x2='840' y1='140.00' y2='140.00' class='grid' /><text x='45' y='144.00' class='axis-label'>56.7%</text><line x1='60' x2='840' y1='100.00' y2='100.00' class='grid' /><text x='45' y='104.00' class='axis-label'>58.0%</text><line x1='60' x2='840' y1='60.00' y2='60.00' class='grid' /><text x='45' y='64.00' class='axis-label'>59.3%</text><polyline points='60.00,69.09 125.00,182.97 190.00,180.20 255.00,160.00 320.00,220.61 385.00,229.96 450.00,250.91 515.00,249.05 580.00,190.30 645.00,129.70 710.00,190.30 775.00,112.25 840.00,244.35' class='line' /><circle cx='60.00' cy='69.09' r='4' class='line-point' /><circle cx='125.00' cy='182.97' r='4' class='line-point' /><circle cx='190.00' cy='180.20' r='4' class='line-point' /><circle cx='255.00' cy='160.00' r='4' class='line-point' /><circle cx='320.00' cy='220.61' r='4' class='line-point' /><circle cx='385.00' cy='229.96' r='4' class='line-point' /><circle cx='450.00' cy='250.91' r='4' class='line-point' /><circle cx='515.00' cy='249.05' r='4' class='line-point' /><circle cx='580.00' cy='190.30' r='4' class='line-point' /><circle cx='645.00' cy='129.70' r='4' class='line-point' /><circle cx='710.00' cy='190.30' r='4' class='line-point' /><circle cx='775.00' cy='112.25' r='4' class='line-point' /><circle cx='840.00' cy='244.35' r='4' class='line-point' /><text x='60.00' y='285' class='axis-label' transform='rotate(-35 60.00,285)'>2025-09-26</text><text x='125.00' y='285' class='axis-label' transform='rotate(-35 125.00,285)'>2025-10-01</text><text x='190.00' y='285' class='axis-label' transform='rotate(-35 190.00,285)'>2025-10-09</text><text x='255.00' y='285' class='axis-label' transform='rotate(-35 255.00,285)'>2025-10-13</text><text x='320.00' y='285' class='axis-label' transform='rotate(-35 320.00,285)'>2025-10-16</text><text x='385.00' y='285' class='axis-label' transform='rotate(-35 385.00,285)'>2025-10-17</text><text x='450.00' y='285' class='axis-label' transform='rotate(-35 450.00,285)'>2025-10-20</text><text x='515.00' y='285' class='axis-label' transform='rotate(-35 515.00,285)'>2025-10-21</text><text x='580.00' y='285' class='axis-label' transform='rotate(-35 580.00,285)'>2025-10-22</text><text x='645.00' y='285' class='axis-label' transform='rotate(-35 645.00,285)'>2025-10-23</text><text x='710.00' y='285' class='axis-label' transform='rotate(-35 710.00,285)'>2025-10-24</text><text x='775.00' y='285' class='axis-label' transform='rotate(-35 775.00,285)'>2025-11-02</text><text x='840.00' y='285' class='axis-label' transform='rotate(-35 840.00,285)'>2025-11-03</text></svg>
+      <h3>Daily Average Speed</h3>
+      <svg viewBox='0 0 900 320' class='chart'><title>Daily Average WPM</title><rect x='0' y='0' width='900' height='320' class='chart-bg' /><line x1='60' x2='60' y1='60' y2='260' class='axis' /><line x1='60' x2='840' y1='260' y2='260' class='axis' /><line x1='60' x2='840' y1='260.00' y2='260.00' class='grid' /><text x='45' y='264.00' class='axis-label'>39.8 WPM</text><line x1='60' x2='840' y1='220.00' y2='220.00' class='grid' /><text x='45' y='224.00' class='axis-label'>40.8 WPM</text><line x1='60' x2='840' y1='180.00' y2='180.00' class='grid' /><text x='45' y='184.00' class='axis-label'>41.7 WPM</text><line x1='60' x2='840' y1='140.00' y2='140.00' class='grid' /><text x='45' y='144.00' class='axis-label'>42.7 WPM</text><line x1='60' x2='840' y1='100.00' y2='100.00' class='grid' /><text x='45' y='104.00' class='axis-label'>43.7 WPM</text><line x1='60' x2='840' y1='60.00' y2='60.00' class='grid' /><text x='45' y='64.00' class='axis-label'>44.7 WPM</text><polyline points='60.00,250.91 125.00,155.85 190.00,206.89 255.00,135.14 320.00,210.15 385.00,151.33 450.00,164.49 515.00,127.79 580.00,157.15 645.00,157.15 710.00,102.53 775.00,69.09 840.00,113.04' class='line' /><circle cx='60.00' cy='250.91' r='4' class='line-point' /><circle cx='125.00' cy='155.85' r='4' class='line-point' /><circle cx='190.00' cy='206.89' r='4' class='line-point' /><circle cx='255.00' cy='135.14' r='4' class='line-point' /><circle cx='320.00' cy='210.15' r='4' class='line-point' /><circle cx='385.00' cy='151.33' r='4' class='line-point' /><circle cx='450.00' cy='164.49' r='4' class='line-point' /><circle cx='515.00' cy='127.79' r='4' class='line-point' /><circle cx='580.00' cy='157.15' r='4' class='line-point' /><circle cx='645.00' cy='157.15' r='4' class='line-point' /><circle cx='710.00' cy='102.53' r='4' class='line-point' /><circle cx='775.00' cy='69.09' r='4' class='line-point' /><circle cx='840.00' cy='113.04' r='4' class='line-point' /><text x='60.00' y='285' class='axis-label' transform='rotate(-35 60.00,285)'>2025-09-26</text><text x='125.00' y='285' class='axis-label' transform='rotate(-35 125.00,285)'>2025-10-01</text><text x='190.00' y='285' class='axis-label' transform='rotate(-35 190.00,285)'>2025-10-09</text><text x='255.00' y='285' class='axis-label' transform='rotate(-35 255.00,285)'>2025-10-13</text><text x='320.00' y='285' class='axis-label' transform='rotate(-35 320.00,285)'>2025-10-16</text><text x='385.00' y='285' class='axis-label' transform='rotate(-35 385.00,285)'>2025-10-17</text><text x='450.00' y='285' class='axis-label' transform='rotate(-35 450.00,285)'>2025-10-20</text><text x='515.00' y='285' class='axis-label' transform='rotate(-35 515.00,285)'>2025-10-21</text><text x='580.00' y='285' class='axis-label' transform='rotate(-35 580.00,285)'>2025-10-22</text><text x='645.00' y='285' class='axis-label' transform='rotate(-35 645.00,285)'>2025-10-23</text><text x='710.00' y='285' class='axis-label' transform='rotate(-35 710.00,285)'>2025-10-24</text><text x='775.00' y='285' class='axis-label' transform='rotate(-35 775.00,285)'>2025-11-02</text><text x='840.00' y='285' class='axis-label' transform='rotate(-35 840.00,285)'>2025-11-03</text></svg>
+    </section>
+
+    <section>
+      <h2>Speed Band Diagnostics</h2>
+      <p>The bars show how copy accuracy behaves within common QRQ ranges. Use this to select practice speeds that maintain at least 60% copy accuracy before moving higher.</p>
+      <svg viewBox='0 0 900 320' class='chart'><title>Accuracy by Speed Band</title><rect x='0' y='0' width='900' height='320' class='chart-bg' /><line x1='70' x2='70' y1='70' y2='250' class='axis' /><line x1='70' x2='830' y1='250' y2='250' class='axis' /><rect x='70.00' y='70.00' width='118.75' height='180.00' class='bar' /><text x='129.38' y='62.00' class='bar-label'>75.9%</text><rect x='260.00' y='102.55' width='118.75' height='147.45' class='bar' /><text x='319.38' y='94.55' class='bar-label'>62.2%</text><rect x='450.00' y='137.00' width='118.75' height='113.00' class='bar' /><text x='509.38' y='129.00' class='bar-label'>47.6%</text><rect x='640.00' y='180.18' width='118.75' height='69.82' class='bar' /><text x='699.38' y='172.18' class='bar-label'>29.4%</text><text x='129.38' y='275' class='axis-label'>≤38 WPM</text><text x='319.38' y='275' class='axis-label'>39–42 WPM</text><text x='509.38' y='275' class='axis-label'>43–46 WPM</text><text x='699.38' y='275' class='axis-label'>≥47 WPM</text></svg>
+      <table>
+        <thead>
+          <tr><th>Speed Band</th><th>Calls</th><th>Correct</th><th>Accuracy</th><th>Avg WPM</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>≤38 WPM</td><td>307</td><td>233</td><td>75.9%</td><td>36.3</td></tr><tr><td>39–42 WPM</td><td>497</td><td>309</td><td>62.2%</td><td>41.1</td></tr><tr><td>43–46 WPM</td><td>531</td><td>253</td><td>47.6%</td><td>44.9</td></tr><tr><td>≥47 WPM</td><td>231</td><td>68</td><td>29.4%</td><td>49.1</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Character Stress Points</h2>
+      <p>Characters below show the highest error rates. Most issues stem from truncated dit endings (e.g., S→I, B→D) and long alternating patterns (e.g., '/').</p>
+      <svg viewBox='0 0 900 480' class='chart'><title>Top Character Error Rates</title><rect x='0' y='0' width='900' height='480' class='chart-bg' /><text x='130' y='58' class='axis-label' text-anchor='end'>7</text><rect x='140' y='40' width='680.00' height='24' class='bar horizontal' /><text x='830.00' y='58' class='bar-label'>41.8%</text><text x='130' y='98' class='axis-label' text-anchor='end'>S</text><rect x='140' y='80' width='659.13' height='24' class='bar horizontal' /><text x='809.13' y='98' class='bar-label'>40.5%</text><text x='130' y='138' class='axis-label' text-anchor='end'>V</text><rect x='140' y='120' width='545.25' height='24' class='bar horizontal' /><text x='695.25' y='138' class='bar-label'>33.5%</text><text x='130' y='178' class='axis-label' text-anchor='end'>B</text><rect x='140' y='160' width='542.22' height='24' class='bar horizontal' /><text x='692.22' y='178' class='bar-label'>33.3%</text><text x='130' y='218' class='axis-label' text-anchor='end'>I</text><rect x='140' y='200' width='501.11' height='24' class='bar horizontal' /><text x='651.11' y='218' class='bar-label'>30.8%</text><text x='130' y='258' class='axis-label' text-anchor='end'>H</text><rect x='140' y='240' width='492.40' height='24' class='bar horizontal' /><text x='642.40' y='258' class='bar-label'>30.3%</text><text x='130' y='298' class='axis-label' text-anchor='end'>X</text><rect x='140' y='280' width='474.87' height='24' class='bar horizontal' /><text x='624.87' y='298' class='bar-label'>29.2%</text><text x='130' y='338' class='axis-label' text-anchor='end'>U</text><rect x='140' y='320' width='465.70' height='24' class='bar horizontal' /><text x='615.70' y='338' class='bar-label'>28.6%</text><text x='130' y='378' class='axis-label' text-anchor='end'>2</text><rect x='140' y='360' width='421.42' height='24' class='bar horizontal' /><text x='571.42' y='378' class='bar-label'>25.9%</text><text x='130' y='418' class='axis-label' text-anchor='end'>/</text><rect x='140' y='400' width='367.31' height='24' class='bar horizontal' /><text x='517.31' y='418' class='bar-label'>22.6%</text></svg>
+      <table>
+        <thead>
+          <tr><th>Character</th><th>Seen</th><th>Errors</th><th>Error Rate</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>7</td><td>122</td><td>51</td><td>41.8%</td></tr><tr><td>S</td><td>269</td><td>109</td><td>40.5%</td></tr><tr><td>V</td><td>179</td><td>60</td><td>33.5%</td></tr><tr><td>B</td><td>207</td><td>69</td><td>33.3%</td></tr><tr><td>I</td><td>211</td><td>65</td><td>30.8%</td></tr><tr><td>H</td><td>185</td><td>56</td><td>30.3%</td></tr><tr><td>X</td><td>161</td><td>47</td><td>29.2%</td></tr><tr><td>U</td><td>248</td><td>71</td><td>28.6%</td></tr><tr><td>2</td><td>193</td><td>50</td><td>25.9%</td></tr><tr><td>/</td><td>124</td><td>28</td><td>22.6%</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Error Taxonomy</h2>
+      <table>
+        <thead>
+          <tr><th>Error Type</th><th>Count</th><th>Share</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>single-substitution</td><td>400</td><td>56.9%</td></tr><tr><td>multi-substitution</td><td>197</td><td>28.0%</td></tr><tr><td>omission</td><td>91</td><td>12.9%</td></tr><tr><td>insertion</td><td>15</td><td>2.1%</td></tr>
+        </tbody>
+      </table>
+      <div class="cards" style="margin-top:24px;">
+        <div class="card">
+          <h4>Top Substitutions</h4>
+          <ul>
+            <li>S → I (61)</li><li>B → D (55)</li><li>V → U (44)</li><li>7 → 8 (40)</li><li>2 → 1 (40)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>Frequent Omissions</h4>
+          <ul>
+            <li>/ (18)</li><li>A (14)</li><li>I (11)</li><li>U (11)</li><li>L (10)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>Extra Characters Typed</h4>
+          <ul>
+            <li>U (2)</li><li>C (2)</li><li>B (2)</li><li>D (2)</li><li>Z (1)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    Generated on 2025-11-03 15:32:16 &mdash; QRQ Copy Performance Dashboard
+  </footer>
+</body>
+</html>
