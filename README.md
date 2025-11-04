@@ -1,5 +1,7 @@
 # QRQ Copy Performance Analyzer
 
+QRQ is a software written by Fabian, DJ5CW - https://fkurz.net/ham/qrq.html
+
 Analyze your QRQ (Morse code) summary logs and produce both a detailed text report and a polished, presentation‑ready HTML dashboard — no external Python packages required.
 
 ## What It Does
