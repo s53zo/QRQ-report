@@ -82,7 +82,11 @@ class Attempt:
 
 
 def parse_attempt(path: Path) -> Optional[Attempt]:
-    lines = path.read_text(encoding="utf-8", errors="replace").splitlines()
+    # Guard against transient or broken paths (e.g., editor lockfiles).
+    try:
+        lines = path.read_text(encoding="utf-8", errors="replace").splitlines()
+    except (FileNotFoundError, OSError):
+        return None
     operator = None
     for line in lines:
         if line.startswith("QRQ attempt by "):
@@ -249,7 +253,13 @@ def _ensure_range(values: List[float]) -> Tuple[float, float]:
     return min_val, max_val
 
 
-def svg_line_chart(labels: List[str], values: List[float], title: str, unit: str = "") -> str:
+def svg_line_chart(
+    labels: List[str],
+    values: List[float],
+    title: str,
+    unit: str = "",
+    add_trend: bool = False,
+) -> str:
     if not labels or not values:
         return "<svg width='800' height='200'><text x='50%' y='50%' text-anchor='middle'>No data</text></svg>"
 
@@ -285,6 +295,29 @@ def svg_line_chart(labels: List[str], values: List[float], title: str, unit: str
         )
 
     polyline = " ".join(points)
+
+    # Optional linear regression trendline in chart coordinates
+    trend_svg = ""
+    if add_trend and len(values) >= 2 and step != 0:
+        n = len(values)
+        xs = list(range(n))
+        sx = sum(xs)
+        sy = sum(values)
+        sxx = sum(x * x for x in xs)
+        sxy = sum(x * y for x, y in zip(xs, values))
+        den = n * sxx - sx * sx
+        if den != 0:
+            m = (n * sxy - sx * sy) / den
+            b = (sy - m * sx) / n
+            # Endpoints in data space
+            y0 = b + m * 0
+            y1 = b + m * (n - 1)
+            # Map to SVG coordinates
+            x1 = pad
+            x2 = pad + (n - 1) * step
+            y1_svg = height - pad - (y0 - min_val) * y_scale
+            y2_svg = height - pad - (y1 - min_val) * y_scale
+            trend_svg = f"<line x1='{x1:.2f}' y1='{y1_svg:.2f}' x2='{x2:.2f}' y2='{y2_svg:.2f}' class='trend' />"
     grid_svg = "".join(grid_lines)
     markers_svg = "".join(markers)
     x_labels_svg = "".join(x_labels)
@@ -296,6 +329,7 @@ def svg_line_chart(labels: List[str], values: List[float], title: str, unit: str
         f"<line x1='{pad}' x2='{width - pad}' y1='{height - pad}' y2='{height - pad}' class='axis' />"
         f"{grid_svg}"
         f"<polyline points='{polyline}' class='line' />"
+        f"{trend_svg}"
         f"{markers_svg}"
         f"{x_labels_svg}"
         f"</svg>"
@@ -496,6 +530,12 @@ def format_attempt_line(label: str, attempt: Attempt) -> str:
 def render_report(base: Path, output_path: Path) -> None:
     attempt_objs = []
     for path in sorted(base.glob("*.txt")):
+        # Skip hidden files and editor lockfiles (e.g., .#filename.txt)
+        if path.name.startswith("."):
+            continue
+        # Skip non-regular files and broken symlinks
+        if not path.is_file():
+            continue
         attempt = parse_attempt(path)
         if attempt:
             attempt_objs.append(attempt)
@@ -666,10 +706,10 @@ def render_html_report(summary: dict, base: Path, output_path: Path) -> None:
     char_labels = [item["char"] for item in top_chars]
     char_rates = [item["rate"] * 100 for item in top_chars]
 
-    accuracy_chart = svg_line_chart(date_labels, date_accuracy, "Daily Accuracy", unit="%")
+    accuracy_chart = svg_line_chart(date_labels, date_accuracy, "Daily Accuracy", unit="%", add_trend=True)
     speed_chart = svg_vertical_bar_chart(speed_labels, speed_accuracy, "Accuracy by Speed Band", unit="%")
     char_chart = svg_horizontal_bar_chart(char_labels, char_rates, "Top Character Error Rates", unit="%")
-    wpm_chart = svg_line_chart(date_labels, date_speed, "Daily Average WPM", unit=" WPM")
+    wpm_chart = svg_line_chart(date_labels, date_speed, "Daily Average WPM", unit=" WPM", add_trend=True)
 
     attempts_count = len(summary["attempts"])
     total_calls = summary["total_calls"]
@@ -867,6 +907,13 @@ def render_html_report(summary: dict, base: Path, output_path: Path) -> None:
       stroke-width: 3;
       stroke-linecap: round;
       stroke-linejoin: round;
+    }}
+    .trend {{
+      fill: none;
+      stroke: #e11d48; /* rose-600 */
+      stroke-width: 2.5;
+      stroke-dasharray: 6 6;
+      opacity: 0.9;
     }}
     .line-point {{
       fill: var(--accent);
