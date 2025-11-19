@@ -1,20 +1,20 @@
 QRQ Copy Performance Report
 ================================
-Generated: 2025-11-06T08:00:07
+Generated: 2025-11-19T08:55:00
 Source directory: /Users/simon/.qrq/Summary
 
 Overall Summary
 ---------------
-Attempts analysed : 38
-Total calls       : 1816
-Accuracy          : 993/1816 (54.681%)
-Average speed     : 43.07 WPM (median 44 WPM)
-Average character : 215.34 CpM (median 220 CpM)
+Attempts analysed : 40
+Total calls       : 1916
+Accuracy          : 1045/1916 (54.541%)
+Average speed     : 43.24 WPM (median 44 WPM)
+Average character : 216.20 CpM (median 220 CpM)
 
 Operator Breakdown
 -------------------
 S53M: 1 attempts | 31/50 (62.000%) | avg 38.12 WPM
-S53ZO: 37 attempts | 962/1766 (54.473%) | avg 43.21 WPM
+S53ZO: 39 attempts | 1014/1866 (54.341%) | avg 43.38 WPM
 
 Session Extremes
 -----------------
@@ -38,28 +38,30 @@ Daily Trend
 2025-11-03: 91/171 (53.2%) | avg WPM 43.4
 2025-11-04: 103/200 (51.5%) | avg WPM 45.5
 2025-11-05: 27/50 (54.0%) | avg WPM 46.9
+2025-11-11: 26/50 (52.0%) | avg WPM 45.9
+2025-11-19: 26/50 (52.0%) | avg WPM 46.8
 
 Error Types
 -----------
-single-substitution :  470 (57.1%)
+single-substitution :  497 (57.1%)
     e.g. S53M-20250926_1033.txt: RT7F -> RT8F (diff RT8F)
     e.g. S53M-20250926_1033.txt: F5OJD -> F5OJB (diff F5OJb)
     e.g. S53M-20250926_1033.txt: DL0BVB -> DL0BUB (diff DL0BuB)
     e.g. S53M-20250926_1033.txt: SP9ZHR -> SP9ZSR (diff SP9ZsR)
     e.g. S53M-20250926_1033.txt: TC57A -> TC5ZA (diff TC5zA)
-multi-substitution  :  233 (28.3%)
+multi-substitution  :  250 (28.7%)
     e.g. S53M-20250926_1033.txt: HB9BSH -> HB9BHS (diff HB9Bhs)
     e.g. S53M-20250926_1033.txt: RV9SV -> RU9IV (diff Ru9iV)
     e.g. S53M-20250926_1033.txt: LA/PA3BWS -> LA/PA3DWE (diff LA/PA3dWe)
     e.g. S53M-20250926_1033.txt: DL2CV -> DL1CU (diff DL1Cu)
     e.g. S53ZO-20250926_1042.txt: R41SK/P -> RV1IK/P (diff Rv1iK/P)
-omission            :  103 (12.5%)
+omission            :  106 (12.2%)
     e.g. S53M-20250926_1033.txt: PA0ADP -> PA0DP (diff PA0dp)
     e.g. S53M-20250926_1033.txt: SP2IHG -> SP2 (diff SP2)
     e.g. S53M-20250926_1033.txt: CT/DL8KWS -> CT/ (diff CT/)
     e.g. S53M-20250926_1033.txt: 4X/UT5UDX -> 4X (diff 4X)
     e.g. S53M-20250926_1033.txt: YO6ZS/P -> YO6GIP (diff YO6gip)
-insertion           :   17 (2.1%)
+insertion           :   18 (2.1%)
     e.g. S53ZO-20251001_1212.txt: UE18C -> UE1ZEC (diff UE1zec)
     e.g. S53ZO-20251001_1212.txt: A44A -> A44UA (diff A44ua)
     e.g. S53ZO-20251001_1223.txt: OZ/DL6LV/P -> OZ/DL6LUC/P (diff OZ/DL6Luc/p)
@@ -69,61 +71,61 @@ insertion           :   17 (2.1%)
 Character Error Rates (>= 10 exposures)
 ----------------------------------------
 Char      Seen    Errors     Error %
-S          311       127       40.8%
-I          255        87       34.1%
-7          156        53       34.0%
-B          253        82       32.4%
-U          276        86       31.2%
-V          201        62       30.8%
-X          184        56       30.4%
-H          214        65       30.4%
-2          221        54       24.4%
-F          262        63       24.0%
-/          135        30       22.2%
-Z          203        38       18.7%
-D          485        72       14.8%
-9          182        27       14.8%
-N          285        38       13.3%
-G          246        30       12.2%
-8          120        14       11.7%
-J          217        24       11.1%
-R          376        34        9.0%
-M          301        26        8.6%
-Q          118        10        8.5%
-6          142        12        8.5%
-L          336        28        8.3%
-P          327        27        8.3%
-5          210        16        7.6%
-K          424        32        7.5%
-O          293        21        7.2%
-T          276        19        6.9%
-4          227        15        6.6%
-A          611        37        6.1%
-0          206        12        5.8%
-1          256        14        5.5%
-3          295        16        5.4%
-Y          241        12        5.0%
-W          336        16        4.8%
-C          264        12        4.5%
-E          303         9        3.0%
+S          340       138       40.6%
+I          271        93       34.3%
+B          265        88       33.2%
+7          166        55       33.1%
+U          293        95       32.4%
+V          212        66       31.1%
+H          226        69       30.5%
+X          193        58       30.1%
+2          229        57       24.9%
+F          270        65       24.1%
+/          139        30       21.6%
+Z          209        39       18.7%
+D          499        75       15.0%
+9          188        27       14.4%
+N          298        39       13.1%
+8          129        16       12.4%
+G          253        30       11.9%
+J          227        25       11.0%
+R          402        36        9.0%
+M          322        27        8.4%
+P          350        29        8.3%
+L          351        29        8.3%
+6          147        12        8.2%
+O          311        25        8.0%
+Q          125        10        8.0%
+5          225        17        7.6%
+K          448        33        7.4%
+T          288        19        6.6%
+4          245        16        6.5%
+A          640        38        5.9%
+0          218        12        5.5%
+3          313        17        5.4%
+1          263        14        5.3%
+Y          256        12        4.7%
+C          278        13        4.7%
+W          362        16        4.4%
+E          324         9        2.8%
 
 Top Substitutions
 -----------------
-S -> I: 72
-B -> D: 64
-I -> E: 56
-U -> A: 50
-V -> U: 45
-2 -> 1: 44
-7 -> 8: 42
-H -> S: 41
-X -> K: 39
-F -> R: 36
+S -> I: 80
+B -> D: 69
+I -> E: 61
+U -> A: 58
+V -> U: 48
+2 -> 1: 46
+7 -> 8: 43
+H -> S: 43
+X -> K: 40
+F -> R: 38
 
 Top Omissions
 -------------
 /: 20
-A: 15
+A: 16
 I: 13
 L: 12
 U: 11
@@ -152,45 +154,45 @@ Character S
    34 WPM: 2/11 (18%)
    36 WPM: 6/18 (33%)
    38 WPM: 8/31 (26%)
-   40 WPM: 17/48 (35%)
-   42 WPM: 27/61 (44%)
-   44 WPM: 21/42 (50%)
-   46 WPM: 24/48 (50%)
-   48 WPM: 11/24 (46%)
-   50 WPM: 9/15 (60%)
-   52 WPM: 2/9 (22%)
+   40 WPM: 17/50 (34%)
+   42 WPM: 27/65 (42%)
+   44 WPM: 23/44 (52%)
+   46 WPM: 29/56 (52%)
+   48 WPM: 11/27 (41%)
+   50 WPM: 12/21 (57%)
+   52 WPM: 3/13 (23%)
 
 Character I
    36 WPM: 0/12 (0%)
    38 WPM: 2/23 (9%)
-   40 WPM: 7/31 (23%)
-   42 WPM: 15/46 (33%)
-   44 WPM: 10/41 (24%)
-   46 WPM: 21/42 (50%)
-   48 WPM: 15/25 (60%)
-   50 WPM: 13/19 (68%)
+   40 WPM: 7/32 (22%)
+   42 WPM: 15/48 (31%)
+   44 WPM: 10/42 (24%)
+   46 WPM: 21/43 (49%)
+   48 WPM: 20/32 (62%)
+   50 WPM: 14/23 (61%)
    52 WPM: 4/6 (67%)
-
-Character 7
-   36 WPM: 1/8 (12%)
-   38 WPM: 4/12 (33%)
-   40 WPM: 12/25 (48%)
-   42 WPM: 7/22 (32%)
-   44 WPM: 12/27 (44%)
-   46 WPM: 9/27 (33%)
-   48 WPM: 5/20 (25%)
-   50 WPM: 1/11 (9%)
 
 Character B
    36 WPM: 1/13 (8%)
    38 WPM: 5/18 (28%)
    40 WPM: 10/36 (28%)
-   42 WPM: 14/42 (33%)
-   44 WPM: 16/38 (42%)
-   46 WPM: 10/41 (24%)
+   42 WPM: 16/44 (36%)
+   44 WPM: 17/43 (40%)
+   46 WPM: 12/44 (27%)
    48 WPM: 15/34 (44%)
-   50 WPM: 4/17 (24%)
-   52 WPM: 5/9 (56%)
+   50 WPM: 4/18 (22%)
+   52 WPM: 6/10 (60%)
+
+Character 7
+   36 WPM: 1/8 (12%)
+   38 WPM: 4/12 (33%)
+   40 WPM: 12/25 (48%)
+   42 WPM: 7/23 (30%)
+   44 WPM: 12/30 (40%)
+   46 WPM: 9/28 (32%)
+   48 WPM: 6/22 (27%)
+   50 WPM: 2/14 (14%)
 
 Character U
    32 WPM: 0/6 (0%)
@@ -198,12 +200,12 @@ Character U
    36 WPM: 2/15 (13%)
    38 WPM: 3/18 (17%)
    40 WPM: 2/33 (6%)
-   42 WPM: 13/57 (23%)
-   44 WPM: 19/54 (35%)
-   46 WPM: 22/42 (52%)
-   48 WPM: 12/19 (63%)
-   50 WPM: 5/13 (38%)
-   52 WPM: 7/8 (88%)
+   42 WPM: 14/59 (24%)
+   44 WPM: 19/56 (34%)
+   46 WPM: 22/43 (51%)
+   48 WPM: 17/26 (65%)
+   50 WPM: 6/16 (38%)
+   52 WPM: 9/10 (90%)
 
 Character V
    34 WPM: 0/5 (0%)
@@ -211,58 +213,59 @@ Character V
    38 WPM: 7/21 (33%)
    40 WPM: 7/20 (35%)
    42 WPM: 9/35 (26%)
-   44 WPM: 15/41 (37%)
-   46 WPM: 13/30 (43%)
-   48 WPM: 6/23 (26%)
-   50 WPM: 4/10 (40%)
+   44 WPM: 16/46 (35%)
+   46 WPM: 14/31 (45%)
+   48 WPM: 6/24 (25%)
+   50 WPM: 6/14 (43%)
    52 WPM: 1/5 (20%)
-
-Character X
-   36 WPM: 0/12 (0%)
-   38 WPM: 0/13 (0%)
-   40 WPM: 1/19 (5%)
-   42 WPM: 9/41 (22%)
-   44 WPM: 11/29 (38%)
-   46 WPM: 15/32 (47%)
-   48 WPM: 12/15 (80%)
-   50 WPM: 6/12 (50%)
-   52 WPM: 2/5 (40%)
 
 Character H
    36 WPM: 3/13 (23%)
    38 WPM: 3/13 (23%)
    40 WPM: 9/23 (39%)
-   42 WPM: 9/40 (22%)
-   44 WPM: 8/42 (19%)
-   46 WPM: 18/44 (41%)
-   48 WPM: 7/22 (32%)
-   50 WPM: 6/11 (55%)
+   42 WPM: 10/43 (23%)
+   44 WPM: 8/43 (19%)
+   46 WPM: 18/47 (38%)
+   48 WPM: 9/24 (38%)
+   50 WPM: 6/13 (46%)
+
+Character X
+   36 WPM: 0/12 (0%)
+   38 WPM: 0/13 (0%)
+   40 WPM: 1/20 (5%)
+   42 WPM: 9/43 (21%)
+   44 WPM: 12/30 (40%)
+   46 WPM: 15/34 (44%)
+   48 WPM: 12/16 (75%)
+   50 WPM: 7/14 (50%)
+   52 WPM: 2/5 (40%)
 
 Character 2
    36 WPM: 0/14 (0%)
-   38 WPM: 0/16 (0%)
-   40 WPM: 1/24 (4%)
+   38 WPM: 0/17 (0%)
+   40 WPM: 1/25 (4%)
    42 WPM: 4/33 (12%)
-   44 WPM: 10/46 (22%)
-   46 WPM: 18/42 (43%)
-   48 WPM: 10/22 (45%)
-   50 WPM: 9/14 (64%)
+   44 WPM: 10/47 (21%)
+   46 WPM: 19/45 (42%)
+   48 WPM: 11/23 (48%)
+   50 WPM: 10/15 (67%)
 
 Character F
    36 WPM: 0/9 (0%)
-   38 WPM: 1/16 (6%)
+   38 WPM: 1/17 (6%)
    40 WPM: 2/38 (5%)
-   42 WPM: 3/47 (6%)
-   44 WPM: 11/51 (22%)
-   46 WPM: 16/46 (35%)
+   42 WPM: 3/49 (6%)
+   44 WPM: 11/52 (21%)
+   46 WPM: 16/48 (33%)
    48 WPM: 11/25 (44%)
    50 WPM: 15/20 (75%)
+   52 WPM: 4/6 (67%)
 
 Speed Bands & Training Notes
 ----------------------------
-≤38 WPM: 237/311 (76.2%) at avg 36.3 WPM
-39–42 WPM: 343/546 (62.8%) at avg 41.1 WPM
-43–46 WPM: 310/632 (49.1%) at avg 44.9 WPM
-≥47 WPM: 103/327 (31.5%) at avg 49.1 WPM
+≤38 WPM: 238/312 (76.3%) at avg 36.3 WPM
+39–42 WPM: 355/562 (63.2%) at avg 41.1 WPM
+43–46 WPM: 333/671 (49.6%) at avg 45.0 WPM
+≥47 WPM: 119/371 (32.1%) at avg 49.1 WPM
 
 Recommendation: spend extra time drilling characters and calls in the 43–46 WPM range until accuracy climbs above 60%. Slow down slightly for isolated practice, then rebuild speed while maintaining clean copy.
